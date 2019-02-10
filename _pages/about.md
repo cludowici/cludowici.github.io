@@ -1,7 +1,9 @@
 ---
 permalink: /
 title: 
-layout: splash
+layout: single
+header:
+	image: /assets/images/BudawangsWinter2017-1.jpg
 excerpt: "About me"
 author_profile: true
 redirect_from: 
