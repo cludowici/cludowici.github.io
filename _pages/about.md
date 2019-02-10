@@ -3,7 +3,7 @@ permalink: /
 title: 
 layout: single
 header:
-  overlay_image: header.jpg
+  image: header.jpg
   caption: "Looking Southwest from Simkin Peak, Ngarigo Country, NSW"
 excerpt: "About me"
 author_profile: true
