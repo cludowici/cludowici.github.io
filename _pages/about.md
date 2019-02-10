@@ -3,7 +3,8 @@ permalink: /
 title: 
 layout: single
 header:
-  image: BudawangsWinter2017-1.jpg
+  overlay_image: header.jpg
+  caption: "Looking Southwest from Simkin Peak, Ngarigo Country, NSW"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
