@@ -4,7 +4,7 @@ title:
 layout: single
 header:
   image: header.jpg
-  caption: "Wog Wog Campground, entrance to the Budawangs Wilderness, Yuin Country, NSW"
+  caption: "Budawangs Wilderness, Yuin Country, NSW"
 excerpt: "About me"
 author_profile: true
 redirect_from: 
