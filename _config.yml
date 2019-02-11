@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Charlie J. H. Ludowici"
+title                    : ""
 title_separator          : "-"
 name                     : &name "Charlie Ludowici"
 description              : &description "PhD Candidate"
@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Charlie Ludowici"
   avatar           : "profile.png"
-  bio              : "PhD Candidate at The University of Sydney, researching the temporal qualities of vision"
+  bio              : "PhD Candidate at The University of Sydney"
   location         : "Sydney"
   employer         :
   googlescholar    : 
