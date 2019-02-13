@@ -300,10 +300,6 @@ tag_archive:
 #     tag: /tags/:name/
 
 
-#Jekyll config
-JEKYLL_ENV=production
-
-
 
 # HTML Compression
 # - http://jch.penibelst.de/
