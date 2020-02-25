@@ -1,5 +1,5 @@
 ---
-title: "Selection from concurrent RSVP streams: Attention shift or buffer read-out?"
+title: "The dynamics of buffered and triggered selection from RSVP streams"
 collection: publications
 permalink: /publication/Selection_from_RSVP
 ---
