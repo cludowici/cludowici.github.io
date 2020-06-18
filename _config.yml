@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Charles J. H. Ludowici"
+title                    : "Dr Charles J. H. Ludowici"
 title_separator          : "-"
 name                     : &name "Dr Charles Ludowici"
 description              : &description "Postdoctoral Scholar"
@@ -80,7 +80,7 @@ analytics:
 
 # Site Author
 author:
-  name             : "Charlie Ludowici"
+  name             : "Dr Charles Ludowici"
   avatar           : "bio.jpg"
   bio              : "Postdoctoral Scholar, Sight Enhancement Lab at Berkeley"
   location         : "Berkeley, CA"
