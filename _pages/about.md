@@ -12,7 +12,7 @@ redirect_from:
   - /about.html
 ---
 
-I am a postdoc in the [Sight Enhancement Lab](http://selab.berkeley.edu/) in The School of Optometry at the University of California, Berkeley. My research investigates the psychophysics of low vision and fixational eye movements.
+I am a postdoc in the [Sight Enhancement Lab](http://selab.berkeley.edu/) in The School of Optometry at the University of California, Berkeley. My research investigates visual function (e.g. hyperacuity and crowding) and fixational eye movements using traditional psychophysical methods as well as tracking scanning laser ophthalmoscopy.
 
 I undertook a PhD in the school of psychology at The University of Sydney with Prof. Alex Holcombe from 2016 to 2020. My PhD research investigated how the brain selects and prioritises certain visual events from the constantly changing stream of information provided by the visual system. I studied this temporal selection using rapid serial visual presentation and mixture models (i.e. [Goodbourn & Holcombe, 2015](http://www.psych.usyd.edu.au/staff/alexh/research/papers/GoodbournHolcombe2015_Postprint_1_0.pdf)). 
 
