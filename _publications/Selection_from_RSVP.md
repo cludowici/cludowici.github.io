@@ -4,7 +4,7 @@ collection: publications
 permalink: /publication/Selection_from_RSVP
 ---
 
-Ludowici, C,. Holcombe, A. O., (In Press). The dynamics of buffered and triggered selection from RSVP streams. *Journal of Experimental Psychology: Human Perception and Performance​*
+Ludowici, C,. Holcombe, A. O., (In Press). The dynamics of buffered and triggered selection from RSVP streams. *Journal of Experimental Psychology: Human Perception and Performance​* https://doi.org/10.1037/xhp0000885
 
 [Preprint link](https://psyarxiv.com/ar72n)
 
