@@ -30,26 +30,24 @@ We want to calculate estimates for $\beta$ and $\theta$.
 
 Using $f()$ to denote density functions, a convenient expression for the model likelihood can be found as follows. 
 
-1. Keep in mind that $ f(y,b\mid \beta) = f(y\mid  b,\beta)f(b) $ 
-2. $ f(y\mid \beta) = \int f(y,b\mid \beta)\, \mathrm{d}b $
-3. Maximize $ l(\beta, \theta) = \log f(y\mid \beta) $ to estimate $ b $ and $ \beta $
+1. Keep in mind that $ f(y,b\mid\beta) = f(y\mid b,\beta)f(b) $ 
+2. $ f(y\mid\beta) = \int f(y,b\mid\beta)\, \mathrm{d}b $
+3. Maximize $ l(\beta,\theta) = \log f(y\mid\beta) $ to estimate $ b $ and $ \beta $
 
 If we note that $y\mid b,\beta \sim N(X\beta+Zb, \Lambda_\theta)$ and $b \sim N(0, \psi_\theta)$, then:
 
-$$f(y\mid \beta) = \int\!f(y,b\mid \beta)\, \mathrm{d}b = \int\!\exp[\log\!f(y,b\mid \beta)]\, \mathrm{d}b$$
+$$f(y\mid \beta) = \int\!f(y, b\mid \beta)\, \mathrm{d}b = \int\!\exp[\log\!f(y, b\mid \beta)]\, \mathrm{d}b$$
 
 The final expression can be expressed as a Taylor expansion about $\hat{b}$ - the maximizer of the log likelihood. We only need terms up to the second derivative, because the higher order derivatives of a log Gaussian are 0. The linear term in the expansion is 0 because $\hat{b}$ is a maximum.
 
 $$
-\int\!\exp[\,\log\!f(y,b\mid \beta)\,]\, \mathrm{d}b  = 
-\int\!\exp[\,\log\!f(y,b\mid \beta) + 0 + (b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b\mid \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
-\\= f(y,b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b\mid \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
-\\ = f(y,b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
+\int\!\exp[\,\log\!f(y, b\mid \beta)\,]\, \mathrm{d}b  = 
+\int\!\exp[\,\log\!f(y, b\mid \beta) + 0 + (b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y, b\mid \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
+\\= f(y, b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y, b\mid \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
+\\ = f(y, b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
 $$ 
 
-Now the integrand in the final expression is the kernel of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^\intercal\Lambda_{\theta}^{-1}Z + \psi_{\theta}^{-1})^{-1}$
-
-Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
+Now the integrand in the final expression is the exponent part of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^\intercal\Lambda_{\theta}^{-1}Z + \psi_{\theta}^{-1})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
 
 $$\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
 = \frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
@@ -57,8 +55,8 @@ $$\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\
 
 So
 
-$$f(y\mid \beta)\,=\,f(y,b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
-= f(y,b\mid \beta)\,\frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
+$$f(y\mid \beta)\,=\,f(y, b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
+= f(y, b\mid \beta)\,\frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
 
 
 From this, twice our log likelihood is:
@@ -85,13 +83,17 @@ $$\hat{\beta} =
 X^\intercal \left\{\Lambda^{-1}_{\theta} - \Lambda^{-1}_{\theta}Z 
         \left[ Z^{\intercal} \Lambda^{-1}_{\theta}Z + \psi^{-1}_{\theta}\right]^{-1} Z^{\intercal} \Lambda^{-1}_{\theta} \right\}y$$
         
-So we now have a likelihood function that depends on $\beta$ and a way of estimating $b$ from $\beta$. Great! Let's try to implement this in NumPy.
+So we now have a likelihood function that depends on $\beta$ and a way of estimating $b$ from $\beta$. All of this depends on an estimate of $\theta$, a vector of parameters that we use to compute the covariance matrices $\Lambda_\theta$ and $\psi_\theta$. Great! Let's try to implement this in NumPy.
 
 ## Doing the computations
 
-I'll compute these estimators by maximum likelihood. The data are simple. An engineer wants to measure the time it takes certain ultrasonic waves to travel along a rail as a measure of longitudinal stress. There are three observations of the time taken for the wave for each of six rails. We're going to fit this with a model in which the intercept can vary between rails. This will give us a estimate of the variability between rails and the average time for each rail. More complex models have a more elaborate covariance matrix structure, which is beyond the scope of this post. I hope to write a post on that eventually.
+I'll compute these estimators by maximum likelihood.
 
-Here's a function that computes the negative log likelihood for our model. Note the very simple covariance structure. There's no correlation between random effects here. 
+Here's a function that computes the negative log likelihood for our model. The first argument to the function, `theta`, is a vector containing guesses for the residual and random effects variances, which we search for using `scipy.optimize.minimize`. 
+
+Note the very simple covariance structure. There's no correlation between random effects here. More complex models have a more elaborate covariance matrix structure, which is beyond the scope of this post. I hope to write a post on that eventually. 
+
+If we're optimizing, `optimizing = True` and we return only the negative log likelihood $-l(\beta, \theta)$ for the minimizer. Otherwise, `optimizing = False` and we return our log likelihood parameter, some sampling statistics for $\hat{\beta}$ and a z-test for that estimate.
 
 
 ```python
@@ -112,17 +114,18 @@ def logLike(theta,X,Z,y, optimizing = True):
 
     yCovariance = Z.T @inverse_lambda @Z + inverse_psi
 
+    #Equation 12: Compute \hat{\beta}
+    
     #This term appears twice in the mixed model equation for beta_hat, compute it once
     C = (inverse_lambda - inverse_lambda @Z @ np.linalg.inv(yCovariance) @Z.T @inverse_lambda)
     
-    #Compute \hat{\beta}
     firstTerm = np.linalg.inv(X.T @ C @X)
 
     secondTerm = X.T @ C @y
 
     beta_hat = firstTerm @ secondTerm #Solution to the mixed model equation
 
-    #compute \hat{\b}
+    #Equation 10: \hat{\b}
     b_hat = np.linalg.inv(yCovariance)@ Z.T @inverse_lambda @ (y - X @ beta_hat)
 
     #likelihood components
@@ -134,7 +137,7 @@ def logLike(theta,X,Z,y, optimizing = True):
     
     psi = np.eye(pr) * sigmaRE
     
-    #log likelihood
+    #Equation 9: log likelihood
     logLik = .5 *(- sqrdMahalanobis - \
     (b_hat.T @inverse_psi @b_hat) - \
     np.log(np.linalg.det(lambda_)) - \
@@ -175,7 +178,10 @@ $$\mathbb{Var} \left[ \hat{\beta} \right] =  \left\{X^\intercal \left( Z\psi Z^\
 
 Because $\hat{\beta}$ is a linear transform of y, which has a Gaussian distribution, it also has a Gaussian distribution.
 
-Great. Now I'll read in the data. The first column is the rail labels, the second is the travel time for the wave.
+Great. Now for some data. They're data are simple. An engineer wants to measure the time it takes certain ultrasonic waves to travel along a rail as a measure of longitudinal stress. There are three observations of the time taken for the wave for each of six rails. We're going to fit this with a model in which the intercept can vary between rails. This will give us a estimate of the variability between rails and the average time for each rail. 
+
+
+The first column is the rail labels, the second is the travel time for the wave.
 
 
 ```python
