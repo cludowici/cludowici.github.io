@@ -31,7 +31,7 @@ We want to calculate estimates for $\beta$ and $\theta$.
 Using $f()$ to denote density functions, a convenient expression for the model likelihood can be found as follows. 
 
 1. Keep in mind that $ f(y,b\mid \beta) = f(y\mid  b,\beta)f(b) $ 
-2. $ f(y\mid \beta) = \int\!f(y,b\mid \beta)\, \mathrm{d}b $
+2. $ f(y\mid \beta) = \int f(y,b\mid \beta)\, \mathrm{d}b $
 3. Maximize $ l(\beta, \theta) = \log f(y\mid \beta) $ to estimate $ b $ and $ \beta $
 
 If we note that $y\mid b,\beta \sim N(X\beta+Zb, \Lambda_\theta)$ and $b \sim N(0, \psi_\theta)$, then:
@@ -47,7 +47,9 @@ $$
 \\ = f(y,b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
 $$ 
 
-Now the integrand in the final expression is the kernel of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
+Now the integrand in the final expression is the kernel of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^\intercal\Lambda_{\theta}^{-1}Z + \psi_{\theta}^{-1})^{-1}$
+
+Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
 
 $$\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
 = \frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
