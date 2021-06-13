@@ -31,31 +31,31 @@ We want to calculate estimates for $\beta$ and $\theta$.
 Using $f()$ to denote density functions, a convenient expression for the model likelihood can be found as follows. 
 
 1. Keep in mind that $f(y,b|\beta) = f(y|b,\beta)f(b)$
-2. $f(y|\beta) = \int\!f(y,b|\beta)\, \mathrm{d}b$
+2. $f(y|\beta) = \int f(y,b|\beta)\, \mathrm{d}b$
 3. Maximize $l(\beta, \theta) = \log f(y|\beta)$ to estimate $b$ and $\beta$
 
 If we note that $y|b,\beta \sim N(X\beta+Zb, \Lambda_\theta)$ and $b \sim N(0, \psi_\theta)$, then:
 
-$$f(y|\beta) = \int\!f(y,b|\beta)\, \mathrm{d}b = \int\!\exp[\log\!f(y,b|\beta)]\, \mathrm{d}b$$
+$$f(y|\beta) = \int f(y,b|\beta)\, \mathrm{d}b = \int \exp[\log f(y,b|\beta)]\, \mathrm{d}b$$
 
 The final expression can be expressed as a Taylor expansion about $\hat{b}$ - the maximizer of the log likelihood. We only need terms up to the second derivative, because the higher order derivatives of a log Gaussian are 0. The linear term in the expansion is 0 because $\hat{b}$ is a maximum.
 
 $$
-\int\!\exp[\,\log\!f(y,b|\beta)\,]\, \mathrm{d}b  = 
-\int\!\exp[\,\log\!f(y,b|\beta) + 0 + (b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b|\beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
-\\= f(y,b|\beta)\int\!\exp[\,(b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b|\beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
-\\ = f(y,b|\beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
+\int \exp[\,\log f(y,b|\beta)\,]\, \mathrm{d}b  = 
+\int \exp[\,\log f(y,b|\beta) + 0 + (b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log f(y,b|\beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
+\\= f(y,b|\beta)\int \exp[\,(b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log f(y,b|\beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
+\\ = f(y,b|\beta)\int \exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
 $$ 
 
-Now $\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b$ is the kernel of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
+Now $\int \exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b$ is the kernel of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
 
-$$\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
+$$\int \exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
 = \frac{(2\pi)^{\frac{p}{2}}}{|(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})|^{\frac{1}{2}}}$$
 
 
 So
 
-$$f(y|\beta)\,=\,f(y,b|\beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
+$$f(y|\beta)\,=\,f(y,b|\beta)\int \exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
 = f(y,b|\beta)\,\frac{(2\pi)^{\frac{p}{2}}}{|(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})|^{\frac{1}{2}}}$$
 
 
