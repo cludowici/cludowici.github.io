@@ -40,7 +40,7 @@ $$
 \int\!\exp[\,\log\!f(y, b\vert \beta)\,]\, \mathrm{d}b  = 
 \int\!\exp[\,\log\!f(y, b\vert \beta) + 0 + (b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y, b\vert \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
 \\= f(y, b\vert \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y, b\vert \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
-\\ = f(y, b\vert \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
+\\ = f(y, b\vert \beta)\int\!\exp[\,-\frac{1}{2}(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
 $$ 
 
 Now the integrand in the final expression is the exponential portion of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^\intercal\Lambda_{\theta}^{-1}Z + \psi_{\theta}^{-1})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
