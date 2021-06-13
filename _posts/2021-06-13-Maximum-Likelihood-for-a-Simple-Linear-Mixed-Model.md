@@ -30,39 +30,39 @@ We want to calculate estimates for $\beta$ and $\theta$.
 
 Using $f()$ to denote density functions, a convenient expression for the model likelihood can be found as follows. 
 
-1. Keep in mind that $ f(y,b|\beta) = f(y|b,\beta)f(b) $ 
-2. $ f(y|\beta) = \int\!f(y,b|\beta)\, \mathrm{d}b $
-3. Maximize $ l(\beta, \theta) = \log f(y|\beta) $ to estimate $ b $ and $ \beta $
+1. Keep in mind that $ f(y,b\mid \beta) = f(y\mid  b,\beta)f(b) $ 
+2. $ f(y\mid \beta) = \int\!f(y,b\mid \beta)\, \mathrm{d}b $
+3. Maximize $ l(\beta, \theta) = \log f(y\mid \beta) $ to estimate $ b $ and $ \beta $
 
-If we note that $y|b,\beta \sim N(X\beta+Zb, \Lambda_\theta)$ and $b \sim N(0, \psi_\theta)$, then:
+If we note that $y\mid b,\beta \sim N(X\beta+Zb, \Lambda_\theta)$ and $b \sim N(0, \psi_\theta)$, then:
 
-$$f(y|\beta) = \int\!f(y,b|\beta)\, \mathrm{d}b = \int\!\exp[\log\!f(y,b|\beta)]\, \mathrm{d}b$$
+$$f(y\mid \beta) = \int\!f(y,b\mid \beta)\, \mathrm{d}b = \int\!\exp[\log\!f(y,b\mid \beta)]\, \mathrm{d}b$$
 
 The final expression can be expressed as a Taylor expansion about $\hat{b}$ - the maximizer of the log likelihood. We only need terms up to the second derivative, because the higher order derivatives of a log Gaussian are 0. The linear term in the expansion is 0 because $\hat{b}$ is a maximum.
 
 $$
-\int\!\exp[\,\log\!f(y,b|\beta)\,]\, \mathrm{d}b  = 
-\int\!\exp[\,\log\!f(y,b|\beta) + 0 + (b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b|\beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
-\\= f(y,b|\beta)\int\!\exp[\,(b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b|\beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
-\\ = f(y,b|\beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
+\int\!\exp[\,\log\!f(y,b\mid \beta)\,]\, \mathrm{d}b  = 
+\int\!\exp[\,\log\!f(y,b\mid \beta) + 0 + (b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b\mid \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
+\\= f(y,b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}\frac{1}{2} \frac{\partial^2\log\!f(y,b\mid \beta)}{\partial b \partial b^\intercal} (b-\hat{b})\,] \mathrm{d}b
+\\ = f(y,b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
 $$ 
 
 Now the integrand in the final expression is the kernel of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
 
 $$\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
-= \frac{(2\pi)^{\frac{p}{2}}}{|(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})|^{\frac{1}{2}}}$$
+= \frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
 
 
 So
 
-$$f(y|\beta)\,=\,f(y,b|\beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
-= f(y,b|\beta)\,\frac{(2\pi)^{\frac{p}{2}}}{|(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})|^{\frac{1}{2}}}$$
+$$f(y\mid \beta)\,=\,f(y,b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
+= f(y,b\mid \beta)\,\frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
 
 
 From this, twice our log likelihood is:
 
 $$2\,l(\beta, \theta) = -(y - X\beta - Z\hat{b})^\intercal\,\Lambda^{-1}_{\theta}(y - X\beta - Z\hat{b}) - \hat{b}^{\intercal}\psi^{-1}_{\theta}\hat{b} \\ 
--\log|\Lambda^{-1}_{\theta}| -\log|\psi^{-1}_{\theta}| - \log|Z^{\intercal}\Lambda^{-1}_{\theta}Z + \psi^{-1}_{\theta}| - n\log(2\pi)$$
+-\log\mid \Lambda^{-1}_{\theta}\mid  -\log\mid \psi^{-1}_{\theta}\mid  - \log\mid Z^{\intercal}\Lambda^{-1}_{\theta}Z + \psi^{-1}_{\theta}\mid  - n\log(2\pi)$$
 
 Calculating the derivatives and solving for $\beta$ and $b$ reveals something that, at first, looks unsolveable, but in reality is just laborious. The MLEs for these parameters rely on each other. 
 
