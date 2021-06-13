@@ -429,7 +429,7 @@ results['Parameters'][1:]
 
 So there is a fair bit of variability between the rails, not much in the way of residual variance, and we now have estimates of the mean time for each rail.
 
-That's it for this post! Feel free to [email](mailto:charlie.ludowici@gmail) me or contact me on [Twitter](https://twitter.com/CharlieLudowici) if you have any questions or find any mistakes (surely not). I have more posts planned on statstics, modelling and data mining. 
+That's it for this post! Feel free to [email](mailto:charlie.ludowici@gmail) me or contact me on [Twitter](https://twitter.com/CharlieLudowici) if you have any questions or find any mistakes (surely not). I have more posts planned on statistics, modeling and data mining. 
 
 I'm looking for analytics work in the bay area at the moment. You can find my CV in the header of this website. 
 
