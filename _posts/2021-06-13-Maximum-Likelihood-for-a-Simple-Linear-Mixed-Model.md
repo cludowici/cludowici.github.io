@@ -2,7 +2,7 @@
 import numpy as np
 ```
 
-Something I've been trying to understand better over the pandemic has been the algorithms and mathematics that underpin commonly used statistical models. I've been reading a lot of great books. At the moment, I'm reading [Wood's book on Generalized Additive Models](https://www.routledge.com/Generalized-Additive-Models-An-Introduction-with-R-Second-Edition/Wood/p/book/9781498728331). He has a great chapter on mixed models. I see these models used a lot, but in many contexts there isn't much discussion of what's going on under the hood of whatever softward package computed the model. So in this post, I'll describe the logic of fitting these models with maximum likelihood estimation and write a function that does so in Python. 
+Something I've been trying to understand better over the pandemic has been the algorithms and mathematics that underpin commonly used statistical models. I've been reading a lot of great books. At the moment, I'm reading [Wood's book on Generalized Additive Models](https://www.routledge.com/Generalized-Additive-Models-An-Introduction-with-R-Second-Edition/Wood/p/book/9781498728331). He has a great chapter on mixed models. I see these models used a lot, but in many contexts there isn't much discussion of what's going on under the hood of whatever software package computed the model. So in this post, I'll describe the logic of fitting these models with maximum likelihood estimation and write a function that does so in Python. 
 
 The function I've written here isn't meant to be a replacement for the complicated computing and estimation that underpins more specialized software for fitting these models. Instead, I hope it makes it clear how the mathematics translates into implementation. I'll avoid efficient, but sometimes hard to read, numerical computing tools like certain matrix decompositions in favor of readable code. 
 
@@ -12,7 +12,7 @@ A simple mixed model has the form
 
 $$Y = X\beta + Zb + \epsilon$$
 
-Where b is a vector of random effects, Z is a model matrix for the random effects, $\beta$ and X are the fixed effect coefficients and the appropriate design matrix, the same as a linear model, and $\epsilon$ is an error term
+Where b is a vector of random effects, Z is a model matrix for the random effects, $\beta$ and X are the fixed effect coefficients and the appropriate design matrix (the same as a linear regression model), and $\epsilon$ is an error term
 
 $$b \sim N(0, \psi_\theta)$$
 
