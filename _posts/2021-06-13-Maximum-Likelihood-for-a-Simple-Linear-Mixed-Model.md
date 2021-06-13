@@ -2,9 +2,9 @@
 import numpy as np
 ```
 
-Something I've been trying to understand better over the pandemic has been the algorithms and mathematics that underpin commonly used statistical models. I've been reading a lot of great books. At the moment, I'm reading [Wood's book on Generalized Additive Models](https://www.routledge.com/Generalized-Additive-Models-An-Introduction-with-R-Second-Edition/Wood/p/book/9781498728331). He has a great chapter on mixed models. I see these models used a lot, but without much discussion of what's going on under the hood of whatever softward package computed the model. So in this post, I'll describe the logic of fitting these models with maximum likelihood estimation and write a function that does so in Python. 
+Something I've been trying to understand better over the pandemic has been the algorithms and mathematics that underpin commonly used statistical models. I've been reading a lot of great books. At the moment, I'm reading [Wood's book on Generalized Additive Models](https://www.routledge.com/Generalized-Additive-Models-An-Introduction-with-R-Second-Edition/Wood/p/book/9781498728331). He has a great chapter on mixed models. I see these models used a lot, but in many contexts there isn't much discussion of what's going on under the hood of whatever softward package computed the model. So in this post, I'll describe the logic of fitting these models with maximum likelihood estimation and write a function that does so in Python. 
 
-The function I write here isn't meant to be a replacement for the complicated computing and estimation that underpins more specialized software for fitting these models. Instead, I hope it makes it clear how the mathematics translates into implementation. I avoid efficient, but sometimes hard to read, numerical computing tools like certain matrix decompositions in favor of readable code. 
+The function I've written here isn't meant to be a replacement for the complicated computing and estimation that underpins more specialized software for fitting these models. Instead, I hope it makes it clear how the mathematics translates into implementation. I'll avoid efficient, but sometimes hard to read, numerical computing tools like certain matrix decompositions in favor of readable code. 
 
 # Linear Mixed Models
 
@@ -12,7 +12,7 @@ A simple mixed model has the form
 
 $$Y = X\beta + Zb + \epsilon$$
 
-Where b is the random effects, Z is a model matrix for the random effects, $\beta$ and X are the fixed effect coefficients and a design matrix, the same as a linear model, and $\epsilon$ is an error term
+Where b is a vector of random effects, Z is a model matrix for the random effects, $\beta$ and X are the fixed effect coefficients and the appropriate design matrix, the same as a linear model, and $\epsilon$ is an error term
 
 $$b \sim N(0, \psi_\theta)$$
 
@@ -47,7 +47,7 @@ $$
 \\ = f(y, b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b
 $$ 
 
-Now the integrand in the final expression is the exponent part of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^\intercal\Lambda_{\theta}^{-1}Z + \psi_{\theta}^{-1})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
+Now the integrand in the final expression is the exponential portion of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^\intercal\Lambda_{\theta}^{-1}Z + \psi_{\theta}^{-1})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
 
 $$\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
 = \frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
@@ -59,7 +59,7 @@ $$f(y\mid \beta)\,=\,f(y, b\mid \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\i
 = f(y, b\mid \beta)\,\frac{(2\pi)^{\frac{p}{2}}}{\mid (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\mid ^{\frac{1}{2}}}$$
 
 
-From this, twice our log likelihood is:
+There's some cancelling of elements from equation 7 when it's multiplied with $f(y, b\mid \beta)$. So twice our log likelihood from $f(y\mid \beta)$ is:
 
 $$2\,l(\beta, \theta) = -(y - X\beta - Z\hat{b})^\intercal\,\Lambda^{-1}_{\theta}(y - X\beta - Z\hat{b}) - \hat{b}^{\intercal}\psi^{-1}_{\theta}\hat{b} \\ 
 -\log\mid \Lambda^{-1}_{\theta}\mid  -\log\mid \psi^{-1}_{\theta}\mid  - \log\mid Z^{\intercal}\Lambda^{-1}_{\theta}Z + \psi^{-1}_{\theta}\mid  - n\log(2\pi)$$
@@ -93,7 +93,7 @@ Here's a function that computes the negative log likelihood for our model. The f
 
 Note the very simple covariance structure. There's no correlation between random effects here. More complex models have a more elaborate covariance matrix structure, which is beyond the scope of this post. I hope to write a post on that eventually. 
 
-If we're optimizing, `optimizing = True` and we return only the negative log likelihood $-l(\beta, \theta)$ for the minimizer. Otherwise, `optimizing = False` and we return our log likelihood parameter, some sampling statistics for $\hat{\beta}$ and a z-test for that estimate.
+If we're optimizing, `optimizing = True` and we return only the negative log likelihood $-l(\beta, \theta)$ for the minimizer. Otherwise, `optimizing = False` and we return our log likelihood, our parameter estimates, some sampling statistics for $\hat{\beta}$ and a z-test for that estimate.
 
 
 ```python
@@ -178,7 +178,7 @@ $$\mathbb{Var} \left[ \hat{\beta} \right] =  \left\{X^\intercal \left( Z\psi Z^\
 
 Because $\hat{\beta}$ is a linear transform of y, which has a Gaussian distribution, it also has a Gaussian distribution.
 
-Great. Now for some data. They're data are simple. An engineer wants to measure the time it takes certain ultrasonic waves to travel along a rail as a measure of longitudinal stress. There are three observations of the time taken for the wave for each of six rails. We're going to fit this with a model in which the intercept can vary between rails. This will give us a estimate of the variability between rails and the average time for each rail. 
+Great. Now for some simple data. An engineer wants to measure the time it takes certain ultrasonic waves to travel along a rail as a measure of longitudinal stress. There are three observations of the time taken for the wave for each of six rails. We're going to fit this with a model in which the intercept can vary between rails. This will give us a estimate of the variability between rails and the average time for each rail. 
 
 
 The first column is the rail labels, the second is the travel time for the wave.
@@ -360,6 +360,13 @@ These are the same models! Our estimates of the variance of the random effects a
 np.round(np.exp(out.x),2)
 ```
 
+
+
+
+    array([511.86,  16.17])
+
+
+
 The estimates from the statsmodel model are
 
 
@@ -367,12 +374,26 @@ The estimates from the statsmodel model are
 np.round([statsModelLMM.cov_re['Group'][0], statsModelLMM.scale],2)
 ```
 
+
+
+
+    array([511.85,  16.17])
+
+
+
 Our fixed intercept and the statsmodel fixed intercept
 
 
 ```python
 np.round([results['Parameters'][0], statsModelLMM.fe_params['Intercept']],2)
 ```
+
+
+
+
+    array([66.5, 66.5])
+
+
 
 Do our random intercepts and the statsmodel random intercepts agree?
 
@@ -390,3 +411,26 @@ np.allclose(
     True
 
 
+
+What are our random intercept estimates?
+
+
+```python
+results['Parameters'][1:]
+```
+
+
+
+
+    array([-12.3697708 , -34.47042796,  17.97740023,  29.19265909,
+           -16.32809746,  15.9982369 ])
+
+
+
+So there is a fair bit of variability between the rails, not much in the way of residual variance, and we now have estimates of the mean time for each rail.
+
+That's it for this post! Feel free to [email](mailto:charlie.ludowici@gmail) me or contact me on [Twitter](https://twitter.com/CharlieLudowici) if you have any questions or find any mistakes (surely not). I have more posts planned on statstics, modelling and data mining. 
+
+I'm looking for analytics work in the bay area at the moment. You can find my CV in the header of this website. 
+
+Thanks for reading.
