@@ -45,13 +45,15 @@ $$
 
 Now the integrand in the final expression is the exponential portion of a Gaussian with a mean of $\hat{b}$ and a covariance matrix $(Z^\intercal\Lambda_{\theta}^{-1}Z + \psi_{\theta}^{-1})^{-1}$. Because a probability distribution integrates to 1, this portion of the Gaussian integrates to the inverse of the normalization constant.
 
-$$\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
+
+
+$$\int\!\exp[\,-\frac{1}{2}(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b\\
 = \frac{(2\pi)^{\frac{p}{2}}}{\vert (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\vert ^{\frac{1}{2}}}$$
 
 
 So
 
-$$f(y\vert \beta)\,=\,f(y, b\vert \beta)\int\!\exp[\,(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
+$$f(y\vert \beta)\,=\,f(y, b\vert \beta)\int\!\exp[\,-\frac{1}{2}(b-\hat{b})^{\intercal}(Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})(b-\hat{b})\,] \mathrm{d}b \\ 
 = f(y, b\vert \beta)\,\frac{(2\pi)^{\frac{p}{2}}}{\vert (Z^{\intercal}\Lambda^{-1}_{\theta}Z\,+\,\psi^{-1}_{\theta})\vert ^{\frac{1}{2}}}$$
 
 
