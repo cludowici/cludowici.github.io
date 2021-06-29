@@ -1,4 +1,4 @@
-<link href="css.css" rel="stylesheet"></link>
+<link href="/assets/css.css" rel="stylesheet"></link>
 It's often the case in an A/B test that covariates are added to a model in order to reduce variance, improve the precision of estimates, or look for conditional effects. However, often this either relies on the assumption that the covariate effects are linear, or uses unwieldy basis expansions like polynomials to account for nonlinear relationships. In this post I show how to use generalized additive models (GAMs) to account for nonlinearities in the relationships between covariates and outcome measures. I use data from an randomized A/B test that looked for differences in profit between two groups of businesses. The effect is small and there's a lot of variance in the data, but this sort of messy data is exactly what we often see in applications, and it's exactly where the easy gains in variance explained by nonlinearities are most useful.
 
 ## Generalized Additive Models and Smoothing Splines
