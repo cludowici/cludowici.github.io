@@ -567,6 +567,6 @@ abline(0, 0, lty =2)
 
 ## Conclusion
 
-GAMs are a powerful tool for estimating any nonlinear contributions of covariates when modelling data from an A/B test (or indeed any design). I show here how to use them in the context of an A/B test to investigate the treatment effect, conditional on some covariate. This accounts for the nonlinear relationship between the covariate and the independent variable and allows us to investigate how the treatment effect varies with this covariate.
+GAMs are a powerful tool for estimating any nonlinear contributions of covariates when modelling data from an A/B test (or indeed any design). I show here how to use them in the context of a randomized experiment to investigate the treatment effect, conditioned on some covariate. This accounts for the nonlinear relationship between the covariate and the independent variable and allows us to investigate how the treatment effect varies with this covariate.
 
 In this A/B test, we see that estimating a nonlinear relationship for baseline profit on future profits and conditioning the treatment effect on baseline profit gives us the best model. Importantly, it's better than a model with linear effects. The conditional effect reveals a decreasing relationship of baseline profit on the effect of being exposed to future markets, suggesting that this treatment may not be useful for manufacturers with above average baseline profits.
