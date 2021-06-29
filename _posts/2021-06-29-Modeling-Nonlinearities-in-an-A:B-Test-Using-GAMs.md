@@ -1,26 +1,3 @@
-# Using Smoothing Splines to Model the Conditional Average Treatment Effect in an A/B Test
-
-
-```R
-# Sat Jun 26 13:37:09 2021 ------------------------------
-library(ggplot2)
-library(mgcv)
-library(nlme)
-library(magrittr)
-library(dplyr)
-library(kableExtra)
-library(IRdisplay)
-
-theme_apa <- papaja::theme_apa() + 
-    theme(text = element_text(size = 20)) + 
-    theme(plot.title = element_text(hjust = 0.5))
-
-options(repr.plot.width = 20, repr.plot.height = 10)
-
-displayAsHTML <- function(x) display_html(as.character(kable(x)))
-```
-
-
 It's often the case in an A/B test that covariates are added to a model in order to reduce variance, improve the precision of estimates, or look for conditional effects. However, often this either relies on the assumption that the covariate effects are linear, or uses unwieldy basis expansions like polynomials to account for nonlinear relationships. In this post I show how to use generalized additive models (GAMs) to account for nonlinearities in the relationships between covariates and outcome measures. I use data from an randomized A/B test that looked for differences in profit between two groups of businesses. The effect is small and there's a lot of variance in the data, but this sort of messy data is exactly what we often see in application, and it's exactly where the easy gains in variance explained by nonlinearities are most useful.
 
 ## Generalized Additive Models and Smoothing Splines
@@ -48,6 +25,24 @@ First up, I want to double check that I have the right data. The simplest way to
 
 
 ```R
+# Sat Jun 26 13:37:09 2021 ------------------------------
+library(ggplot2)
+library(mgcv)
+library(nlme)
+library(magrittr)
+library(dplyr)
+library(kableExtra)
+library(IRdisplay)
+
+theme_apa <- papaja::theme_apa() + 
+    theme(text = element_text(size = 20)) + 
+    theme(plot.title = element_text(hjust = 0.5))
+
+options(repr.plot.width = 20, repr.plot.height = 10)
+
+displayAsHTML <- function(x)
+    display_html(as.character(kable(x)))
+
 main <- haven::read_dta('JPAL_3813/data/analysis.dta') #Main dataset, for analysis
 
 takeupData <- haven::read_dta('JPAL_3813/data/takeup.dta') #Some missing data can be found here. I need to match on ID and round and select 
@@ -222,13 +217,13 @@ ggplot(main[dubs_sample,])+
 
 
     
-![png](Figures/2021-06-29/output_17_1.png)
+![png](/_posts/Figures/2021-06-29/output_14_1.png)
     
 
 
 
     
-![png](Figures/2021-06-29/output_17_2.png)
+![png](/_posts/Figures/2021-06-29/output_14_2.png)
     
 
 
@@ -525,15 +520,15 @@ gam.check(modSmoothBaseConditional)
     
                                               k'   edf k-index p-value    
     s(id)                                   1.00  0.35    0.82  <2e-16 ***
-    s(log_profit_rug_business_b)            9.00  8.52    1.01    0.58    
-    s(log_profit_rug_business_b):treatment 10.00  1.50    1.01    0.61    
+    s(log_profit_rug_business_b)            9.00  8.52    1.01    0.69    
+    s(log_profit_rug_business_b):treatment 10.00  1.50    1.01    0.62    
     ---
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 
 
     
-![png](Figures/2021-06-29/output_41_1.png)
+![png](/_posts/Figures/2021-06-29/output_38_1.png)
     
 
 
@@ -549,7 +544,7 @@ abline(0,0, lty = 2)
 
 
     
-![png](Figures/2021-06-29/output_44_0.png)
+![png](/_posts/Figures/2021-06-29/output_41_0.png)
     
 
 
@@ -565,7 +560,7 @@ abline(0, 0, lty =2)
 
 
     
-![png](Figures/2021-06-29/output_46_0.png)
+![png](/_posts/Figures/2021-06-29/output_43_0.png)
     
 
 
