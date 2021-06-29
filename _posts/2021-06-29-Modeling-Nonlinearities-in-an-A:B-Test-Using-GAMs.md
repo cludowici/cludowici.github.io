@@ -9,6 +9,7 @@ $$g(\mathbb{E}\left[ y\right]) = \alpha + \sum_j f_j(x_j)$$
 The function $g$ is a link function for an exponential family distribution that acts in the same way as link functions in generalized linear models. In this post I'll use a Gaussian distribution and an identity link for ease of explanation. The theory for response distributions and the associated link functions is the same as that for GLMs.
 
 The $f_j$ are smooth functions of the j-th covariate. These are estimated using interpolation methods that are *penalized* to attenuate overfitting. Often they are piecewise functions of the data with some continuity constraints, like a cublic spline.  They minimize the difference between the outcome $y$ and the function $f$ with a penalty $\lambda$ on the "wiggliness" of the function.
+
 $$\mid\mid y - f \mid\mid^2 +\,\lambda\int \left(\frac{\partial^2 f}{\partial x^2}\right)^2dx$$
 
 The greater $\lambda$ is, the less "wiggly" the function is allowed to be. In the unpenalized scenario ($\lambda = 0$), the function interpolates all points, which is obviously undesirable because it leads to massive overfitting. In the completely penalized scenario ($\lambda = \infty$), the fitting cannot accept any nonzero second derivatives and the function is linear. 
@@ -217,13 +218,13 @@ ggplot(main[dubs_sample,])+
 
 
     
-![png](/_posts/Figures/2021-06-29/output_14_1.png)
+![png](/Figures/2021-06-29/output_14_1.png)
     
 
 
 
     
-![png](/_posts/Figures/2021-06-29/output_14_2.png)
+![png](/Figures/2021-06-29/output_14_2.png)
     
 
 
@@ -528,7 +529,7 @@ gam.check(modSmoothBaseConditional)
 
 
     
-![png](/_posts/Figures/2021-06-29/output_38_1.png)
+![png](/Figures/2021-06-29/output_38_1.png)
     
 
 
@@ -544,7 +545,7 @@ abline(0,0, lty = 2)
 
 
     
-![png](/_posts/Figures/2021-06-29/output_41_0.png)
+![png](/Figures/2021-06-29/output_41_0.png)
     
 
 
@@ -560,7 +561,7 @@ abline(0, 0, lty =2)
 
 
     
-![png](/_posts/Figures/2021-06-29/output_43_0.png)
+![png](/Figures/2021-06-29/output_43_0.png)
     
 
 
