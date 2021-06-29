@@ -12,7 +12,7 @@ The $f_j$ are smooth functions of the j-th covariate. These are estimated using 
 
 $$\mid\mid y - f \mid\mid^2 +\,\lambda\int \left(\frac{\partial^2 f}{\partial x^2}\right)^2dx$$
 
-The greater $\lambda$ is, the less "wiggly" the function is allowed to be. In the unpenalized scenario ($\lambda = 0$), the function interpolates all points, which is obviously undesirable because it leads to massive overfitting. In the completely penalized scenario ($\lambda = \infty$), the fitting cannot accept any nonzero second derivatives and the function is linear. 
+The greater $\lambda$ is, the less "wiggly" the function is allowed to be. In the unpenalized scenario ($\lambda = 0$), the function interpolates all points, which is obviously undesirable because it leads to massive overfitting. In the completely penalized scenario ($\lambda \to \infty$), the fitting cannot accept any nonzero second derivatives and the function is linear. 
 
 I use `mgcv::` in R to estimate the parameters for GAMs here. It uses generalized cross validation to estimate $\lambda$ and combines this with iterative reweighted least squares (i.e. Newton's method) for optimization. 
 
