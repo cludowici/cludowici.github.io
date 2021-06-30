@@ -551,7 +551,7 @@ abline(0,0, lty = 2)
 
 Each small vertical line on the x represents an observation of log baseline profit. The x-axis is centered on the mean of log baseline profit. We can see that baseline profit has a substantially nonlinear effect on profit in this sample, and in some cases is associated with reductions in profit. 
 
-The conditional treatment effect shows a plot that is almost linear. This has a simple interpretation. The effect of treatment is monotonically decreasing with increasing baseline profit. I wouldn't put much faith in the fact that the function deviates below zero (dashed line) at high baseline profits, because there are only 3 observations there. 
+The conditional treatment effect shows a plot that is almost linear. This has a simple interpretation. The effect of treatment is monotonically decreasing with increasing baseline profit. I wouldn't put much faith in the fact that the function deviates below zero (dashed line) at high baseline profits, because there are only 3 observations there. Removing these outliers does not change the results, so we can be confident that these observations are not driving the decreasing effect.
 
 
 ```R
