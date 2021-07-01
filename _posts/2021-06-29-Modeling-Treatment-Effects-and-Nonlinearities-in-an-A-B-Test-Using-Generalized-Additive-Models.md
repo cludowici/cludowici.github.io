@@ -1,4 +1,4 @@
-It's often the case in an A/B test that covariates are added to a model in order to reduce variance, improve the precision of estimates, or look for conditional effects. However, often this either relies on the assumption that the covariate effects are linear, or uses unwieldy basis expansions like polynomials to account for nonlinear relationships. In this post I show how to use generalized additive models (GAMs) to account for nonlinearities in the relationships between covariates and outcome measures. I use data from an randomized A/B test that looked for differences in profit between two groups of businesses. The effect is small and there's a lot of variance in the data, but this sort of messy data is exactly what we often see in applications, and it's exactly where the easy gains in variance explained by nonlinearities are most useful.
+It's often the case in an A/B test that covariates are added to a model in order to reduce variance, improve the precision of estimates, or look for conditional effects. However, often this either relies on the assumption that the covariate effects are linear, or uses unwieldy basis expansions like polynomials to account for nonlinear relationships. In this post I show how to use generalized additive models (GAMs) to account for nonlinearities in the relationships between covariates and outcome measures. I use data from a randomized A/B test that looked for differences in profit between two groups of businesses. The effect is small and there's a lot of variance in the data, but this sort of messy data is exactly what we often see in applications, and it's exactly where the easy gains in variance explained by nonlinearities are most useful.
 
 ## Generalized Additive Models and Smoothing Splines
 
@@ -8,7 +8,7 @@ $$g(\mathbb{E}\left[ y\right]) = \alpha + \sum_j f_j(x_j)$$
 
 The function $g$ is a link function for an exponential family distribution that acts in the same way as link functions in generalized linear models. In this post I'll use a Gaussian distribution and an identity link for ease of explanation. The theory for response distributions and the associated link functions is the same as that for GLMs.
 
-The $f_j$ are smooth functions of the j-th covariate. These are estimated using interpolation methods that are *penalized* to attenuate overfitting. Often they are piecewise functions of the data with some continuity constraints, like a cublic spline.  They minimize the difference between the outcome $y$ and the function $f$ with a penalty $\lambda$ on the "wiggliness" of the function.
+The $f_j$ are smooth functions of the j-th covariate. These are estimated using interpolation methods that are *penalized* to attenuate overfitting. Often they are piecewise functions of the data with some continuity constraints, like a cubic spline.  They minimize the difference between the outcome $y$ and the function $f$ with a penalty $\lambda$ on the "wiggliness" of the function.
 
 $$\mid\mid y - f \mid\mid^2 +\,\lambda\int \left(\frac{\partial^2 f}{\partial x^2}\right)^2dx$$
 
@@ -16,7 +16,7 @@ The greater $\lambda$ is, the less "wiggly" the function is allowed to be. In th
 
 I use `mgcv::` in R to estimate the parameters for GAMs here. It uses generalized cross validation to estimate $\lambda$ and combines this with iterative reweighted least squares (i.e. Newton's method) for optimization. 
 
-I highly, highly reccommend [Simon Wood's GAM book](https://www.routledge.com/Generalized-Additive-Models-An-Introduction-with-R-Second-Edition/Wood/p/book/9781498728331) for a comprehensive coverage of GAM theory and use. 
+I highly, highly recommend [Simon Wood's GAM book](https://www.routledge.com/Generalized-Additive-Models-An-Introduction-with-R-Second-Edition/Wood/p/book/9781498728331) for a comprehensive coverage of GAM theory and use. 
 
 ## The Data
 
@@ -332,7 +332,7 @@ summary(modTreatNoBaseline)
 Our treatment effect estimate hasn't really changed. Nor has the amount of variance explained ('Deviance explained' is R<sup>2</sup> if a response is Gaussian). Clearly there is a lot of variance in sales profit that is explained by variables other than our treatment and the structure of our observations.
 
 ### Model 3: Treatment, structure and a covariate
-It's reasonable to think that the manufacturers differed in their profits prior to being randomized to treatment, so we can add log baseline profit as a covariate to better account for any variance in profit. This is the profit for the month preceeding the first round of data collection, which is why this round of data is excluded from our data above.
+It's reasonable to think that the manufacturers differed in their profits prior to being randomized to treatment, so we can add log baseline profit as a covariate to better account for any variance in profit. This is the profit for the month preceding the first round of data collection, which is why this round of data is excluded from our data above.
 
 
 
