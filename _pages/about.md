@@ -12,11 +12,11 @@ redirect_from:
   - /about.html
 ---
 
-I am a scientist with a deep interest in data analytics, mathematical methods and behavioural experimentation. Currently I am a postdoc in the [Sight Enhancement Lab](http://selab.berkeley.edu/) in The School of Optometry at the University of California, Berkeley. My research investigates visual function (e.g. hyperacuity and crowding) and fixational eye movements using traditional psychophysical methods as well as tracking scanning laser ophthalmoscopy.
+I am currently looking for data science work in the Bay Area with a focus on some combination of experimentation, product, and analytics. My CV is [here](/files/CV.pdf). My statistics blog is [here](/posts/)
+
+I am a scientist with a deep interest in mathematical methods, statistics, data science, analytics and behavioral experimentation. Currently I am a postdoc in the Sight Enhancement Lab in The School of Optometry at the University of California, Berkeley. My research uses statistical modeling (i.e. regression, GAMs, GLMs) as well as machine learning and reinforcement learning methods to draw insights from large datasets made up of physiological and behavioural data to investigate visual function (e.g. hyperacuity and crowding) in ocular disease and normal vision.
 
 I undertook a PhD in the school of psychology at The University of Sydney with Prof. Alex Holcombe from 2016 to 2020. My PhD research investigated how the brain selects and prioritises certain visual events from the constantly changing stream of information provided by the visual system. I studied this temporal selection using rapid serial visual presentation and mixture models (i.e. [Ludowici & Holcombe, 2020](https://psyarxiv.com/ar72n)). 
 
-My research intersects with eye movements, attention, and crowding, as well as cognition, computational modelling and open science.  
-
-When I'm not working, you can find me working on my understanding of math, cycling, bike touring, or bushwalking ("backpacking" if you're an American). Please email me if you are interested in collaborating, chatting about research, or if you just want to go for a ride. 
+When I'm not working, you can find me reading math, cycling, or bushwalking ("backpacking" if you're an American). Please email me if you are interested in collaborating on an analysis, chatting about research, or if you just want to go for a ride. 
 
