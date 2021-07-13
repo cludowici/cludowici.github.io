@@ -12,7 +12,7 @@ redirect_from:
   - /about.html
 ---
 
-I am currently looking for data science work in the Bay Area with a focus on some combination of experimentation, product, and analytics. My CV is [here](/files/CV%20Public/CV.pdf). My statistics blog is [here](/posts/)
+I am currently looking for data science work in the Bay Area with a focus on some combination of experimentation, and analytics. My CV is [here](/files/CV%20Public/CV.pdf). My statistics blog is [here](/posts/)
 
 I am a scientist with a deep interest in mathematical methods, statistics, data science, analytics and behavioral experimentation. Currently I am a postdoc in the Sight Enhancement Lab in The School of Optometry at the University of California, Berkeley. My research uses statistical modeling (i.e. regression, GAMs, GLMs) as well as machine learning and reinforcement learning methods to draw insights from large datasets made up of physiological and behavioural data to investigate visual function (e.g. hyperacuity and crowding) in ocular disease and normal vision.
 
